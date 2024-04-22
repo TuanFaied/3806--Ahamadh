@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                    
-                    docker.build("calculator-app:latest", ".")
+                    docker.build("calculator-app", ".")
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     
-                    def app = docker.run("calculator-app:latest", "--rm -p 8080:80")
+                    def app = docker.run("calculator-app", "--rm -p 8080:80")
                     
                     sleep 5                  
                     sh 'curl -f http://localhost:8080 || (echo "Application failed to start" && exit 1)'
