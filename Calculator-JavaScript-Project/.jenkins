@@ -1,18 +1,18 @@
 pipeline {
     agent any
-
+    
     stages {
         stage('Clone Repository') {
             steps {
-                git branch:'main', url: 'https://github.com/TuanFaied/3806--Ahamadh.git'
+                git branch: 'main', url: 'https://github.com/TuanFaied/3806--Ahamadh.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                   
-                    docker.build("calculator-app", ".")
+                    
+                    docker.build("calculator-app:latest", ".")
                 }
             }
         }
@@ -21,11 +21,20 @@ pipeline {
             steps {
                 script {
                     
-                    def app = docker.run("calculator-app", "--rm -p 8080:80")
-                    
-                    sleep 5                  
-                    sh 'curl -f http://localhost:8080 || (echo "Application failed to start" && exit 1)'
+                    def app = docker.run("calculator-app:latest", "-p 8080:80", "--rm")
 
+                    
+                    sleep 5
+                    
+                    
+                    def result = sh(script: 'curl -f http://localhost:8080', returnStatus: true)
+                    
+                    
+                    if (result != 0) {
+                        error('Application failed to start')
+                    }
+
+                   
                     app.stop()
                 }
             }
@@ -34,7 +43,6 @@ pipeline {
 
     post {
         always {
-            
             script {
                 
                 sh 'docker ps -q | xargs -r docker stop'
