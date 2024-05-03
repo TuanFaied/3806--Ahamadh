@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     
-                    def app = docker.image("calculator-app:latest").run("-p 8080:80", "--rm") 
+                    def app = docker.image("calculator-app:latest").run("-p 8081:80", "--rm") 
 
                     
                     sleep 5
