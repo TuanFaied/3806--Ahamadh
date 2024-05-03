@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     
-                    docker.build("calculator-app:latest", "-f Dockerfile .")
+                    docker.build("calculator-app:latest", "-f Calculator-JavaScript-Project/Dockerfile .")
                 }
             }
         }
