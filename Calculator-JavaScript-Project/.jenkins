@@ -35,7 +35,7 @@ pipeline {
                     }
 
                    
-                    app.stop()
+                    //app.stop()
                 }
             }
         }
