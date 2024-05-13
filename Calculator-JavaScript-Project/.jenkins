@@ -27,7 +27,7 @@ pipeline {
                     sleep 5
                     
                     
-                    def result = sh(script: 'curl -f http://localhost:8081', returnStatus: true)
+                    def result = sh(script: 'curl -f http://localhost:8080', returnStatus: true)
                     
                     
                     if (result != 0) {
