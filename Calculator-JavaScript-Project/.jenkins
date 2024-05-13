@@ -21,13 +21,13 @@ pipeline {
             steps {
                 script {
                     
-                    def app = docker.image("calculator-app:latest").run("-p 8080:8080", "--rm") 
+                    def app = docker.image("calculator-app:latest").run("-p 8081:8080", "--rm") 
 
                     
                     sleep 5
                     
                     
-                    def result = sh(script: 'curl -f http://localhost:8080', returnStatus: true)
+                    def result = sh(script: 'curl -f http://localhost:8081', returnStatus: true)
                     
                     
                     if (result != 0) {
